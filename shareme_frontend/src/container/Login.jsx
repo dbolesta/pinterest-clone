@@ -5,8 +5,11 @@ import shareVideo from '../assets/share.mp4';
 import logo from '../assets/logo.png';
 import axios from 'axios';
 import jwt_decode from "jwt-decode";
+import { client } from '../client';
 
 const Login = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex justify-start items-center flex-col h-screen">
         <div className="relative w-full h-full">
@@ -30,16 +33,21 @@ const Login = () => {
                         console.log(credentialResponse);
                         var token = credentialResponse.credential;
                         var userData = jwt_decode(token);
- 
-                        const {name, email, picture} = userData;
+                        console.log(userData);
+                        const {name, sub, picture} = userData;
 
                         // prepare for sanity document
                         const doc = {
-                            _id: email,
+                            _id: sub,
                             _type: 'user',
                             userName: name,
                             image: picture
                         }
+
+                        client.createIfNotExists(doc)
+                            .then(() => {
+                                navigate('/', {replace: true});
+                            });
                     }}
                     
                     onError={() => {
