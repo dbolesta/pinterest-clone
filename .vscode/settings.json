@@ -1,0 +1,4 @@
+{
+    // legend: https://stackoverflow.com/questions/71560371/sanity-studio-parsing-error-for-babel-preset-env
+    "eslint.workingDirectories": ["./shareme_backend", "./shareme_frontend"]
+}
