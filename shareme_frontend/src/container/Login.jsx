@@ -3,6 +3,8 @@ import {useNavigate} from 'react-router-dom';
 import {FcGoogle} from 'react-icons/fc';
 import shareVideo from '../assets/share.mp4';
 import logo from '../assets/logo.png';
+import axios from 'axios';
+import jwt_decode from "jwt-decode";
 
 const Login = () => {
   return (
@@ -23,9 +25,23 @@ const Login = () => {
                 </div>
                 <div className="shadow-2xl">
                 <GoogleLogin
-                    onSuccess={credentialResponse => {
+                    onSuccess={async credentialResponse => {
+                        // localStorage.setItem('user', )
                         console.log(credentialResponse);
+                        var token = credentialResponse.credential;
+                        var userData = jwt_decode(token);
+ 
+                        const {name, email, picture} = userData;
+
+                        // prepare for sanity document
+                        const doc = {
+                            _id: email,
+                            _type: 'user',
+                            userName: name,
+                            image: picture
+                        }
                     }}
+                    
                     onError={() => {
                         console.log('Login Failed');
                     }}
