@@ -1,7 +1,7 @@
 import React from 'react'
 import {Routes, Route, useNavigate } from 'react-router-dom'
-import Home from './components/Home'
-import Login from './container/Login'
+import Home from './container/Home'
+import Login from './components/Login'
 
 function App() {
   return (

@@ -1,9 +1,7 @@
 import { GoogleLogin } from '@react-oauth/google';
 import {useNavigate} from 'react-router-dom';
-import {FcGoogle} from 'react-icons/fc';
 import shareVideo from '../assets/share.mp4';
 import logo from '../assets/logo.png';
-import axios from 'axios';
 import jwt_decode from "jwt-decode";
 import { client } from '../client';
 
@@ -29,11 +27,12 @@ const Login = () => {
                 <div className="shadow-2xl">
                 <GoogleLogin
                     onSuccess={async credentialResponse => {
-                        // localStorage.setItem('user', )
+                        
                         console.log(credentialResponse);
                         var token = credentialResponse.credential;
                         var userData = jwt_decode(token);
                         console.log(userData);
+                        localStorage.setItem('user', JSON.stringify(userData));
                         const {name, sub, picture} = userData;
 
                         // prepare for sanity document
